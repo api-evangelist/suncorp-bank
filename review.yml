@@ -1,0 +1,87 @@
+aid: suncorp-bank
+name: Suncorp Bank
+review:
+  question: Does Suncorp Bank expose a live, public Consumer Data Right Product Reference Data API, and does it run a broader proprietary developer portal?
+  answer: true
+  date: '2026-07-20'
+  reviewer: API Evangelist
+  cdrPrdConfirmed: true
+  proprietaryDeveloperPortal: false
+findings:
+  summary: |
+    Suncorp Bank is an Australian ADI and a Consumer Data Right (CDR) data
+    holder. Its public, unauthenticated Product Reference Data (PRD) API is
+    LIVE and was confirmed with a real HTTP 200 response on 2026-07-20 at
+    https://id-ob.suncorpbank.com.au/cds-au/v1/banking/products, returning a
+    Consumer Data Standards JSON payload with a data.products array (26
+    products, meta.totalRecords 26) and an x-v response header. The endpoint
+    negotiates versions per the CDS Header versioning scheme: x-v 3 was
+    rejected with HTTP 406 (Header/UnsupportedVersion) while x-v 4 and x-v 5
+    both returned HTTP 200, indicating the current maximum supported version
+    is 5. The public product APIs expose no consumer data and require no
+    credentials, consistent with the CDR unauthenticated PRD tier.
+
+    Beyond the mandated CDR PRD surface, Suncorp Bank does NOT publish a
+    broad proprietary developer portal or an Up-style personal-banking
+    developer API. Public documentation is a single help/support open-banking
+    page (https://www.suncorpbank.com.au/help-support/open-banking.html) that
+    documents the PRD endpoints and points to the Data Standards Body (DSB)
+    Consumer Data Standards. The PRD portal is operated for the bank by
+    Frollo. Suncorp Bank was acquired by ANZ on 31 July 2024 and operates as
+    an ANZ division while retaining its brand; product terms may migrate to
+    ANZ equivalents over the transition.
+
+    Authorised consumer-data (authenticated) CDR endpoints exist per the CDS
+    but are gated behind the CDR Accredited Data Recipient (ADR) model with
+    OAuth2 / OIDC and FAPI-grade security; they are not openly accessible and
+    are out of scope for this public harvest.
+  specProvenance: |
+    The harvested OpenAPI is the SHARED Data Standards Body (DSB) Consumer
+    Data Standards "CDR Banking API" specification (OpenAPI 3.0.3, version
+    1.36.0), NOT a Suncorp-proprietary contract. Suncorp Bank does not
+    publish its own OpenAPI document; its PRD endpoint conforms to this
+    standard. Saved verbatim to
+    openapi/suncorp-bank-cds-banking-products-openapi.yml from
+    https://consumerdatastandardsaustralia.github.io/standards/includes/swagger/cds_banking.yaml
+    The bank's live public surface implements only the two unauthenticated
+    product paths (/banking/products and /banking/products/{productId}) from
+    this multi-endpoint banking spec.
+  authModel: |
+    Public PRD tier: none (unauthenticated, no API key). Authenticated CDR
+    consumer-data tier: OAuth2 / OpenID Connect under the CDR Accredited Data
+    Recipient framework with FAPI security profiles, not publicly consumable.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://id-ob.suncorpbank.com.au/cds-au/v1
+      documented: true
+      note: CDR Product Reference Data. Confirmed HTTP 200 with x-v 5 on 2026-07-20.
+  endpointsConfirmed:
+    - GET https://id-ob.suncorpbank.com.au/cds-au/v1/banking/products
+    - GET https://id-ob.suncorpbank.com.au/cds-au/v1/banking/products/{productId}
+  probeResults:
+    - url: https://id-ob.suncorpbank.com.au/cds-au/v1/banking/products
+      requestHeader: 'x-v: 5'
+      httpStatus: 200
+      note: Returned data.products array; meta.totalRecords 26; x-v 5 response header.
+    - url: https://id-ob.suncorpbank.com.au/cds-au/v1/banking/products
+      requestHeader: 'x-v: 3'
+      httpStatus: 406
+      note: Header/UnsupportedVersion — max supported version is x-v 5.
+    - url: https://api.suncorp.com.au/cds-au/v1/banking/products
+      httpStatus: 404
+      note: Not the CDR host; Suncorp Group corporate domain, no PRD here.
+sources:
+  - url: https://www.suncorpbank.com.au/help-support/open-banking.html
+    type: Documentation
+    note: Official Suncorp Bank open-banking page documenting the PRD endpoints and ANZ ownership.
+  - url: https://id-ob.suncorpbank.com.au/cds-au/v1/banking/products
+    type: APIReference
+    note: Live CDR PRD endpoint; confirmed HTTP 200 with CDS product payload.
+  - url: https://consumerdatastandardsaustralia.github.io/standards/includes/swagger/cds_banking.yaml
+    type: OpenAPI
+    note: Shared DSB Consumer Data Standards CDR Banking API OpenAPI 3.0.3 v1.36.0 (harvested verbatim).
+actions:
+  openapiPath: openapi/suncorp-bank-cds-banking-products-openapi.yml
+  openapiProvenance: DSB Consumer Data Standards (shared standard, not bank-proprietary)
+  apisYmlUpdated: true

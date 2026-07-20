@@ -1,0 +1,71 @@
+aid: suncorp-bank
+url: https://raw.githubusercontent.com/api-evangelist/suncorp-bank/refs/heads/main/apis.yml
+name: Suncorp Bank
+kind: company
+description: Suncorp Bank is an Australian retail and business bank headquartered in
+  Brisbane, Queensland, offering transaction and savings accounts, home and personal
+  lending, credit cards, and business banking. Formerly the banking arm of Suncorp
+  Group, it was acquired by Australia and New Zealand Banking Group (ANZ) on 31 July
+  2024 and now operates as a division of ANZ while retaining the Suncorp Bank brand
+  under a multi-year transition. As an authorised deposit-taking institution (ADI)
+  it is a data holder under Australia's Consumer Data Right (CDR / Open Banking) and
+  exposes a public, unauthenticated Product Reference Data (PRD) API conforming to
+  the Consumer Data Standards, powered by the Frollo PRD portal.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Financial
+- Banks
+- Open Banking
+- CDR
+- Consumer Banking
+- Australia
+- Product Reference Data
+- Consumer Data Right
+created: '2026-07-20'
+modified: '2026-07-20'
+specificationVersion: '0.19'
+apis:
+- aid: suncorp-bank:suncorp-bank-cdr-product-reference-data-api
+  name: Suncorp Bank CDR Product Reference Data API
+  tags:
+  - CDR
+  - Open Banking
+  - Product Reference Data
+  - Banking Products
+  - Public
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.suncorpbank.com.au/help-support/open-banking.html
+  baseURL: https://id-ob.suncorpbank.com.au/cds-au/v1
+  properties:
+  - url: https://www.suncorpbank.com.au/help-support/open-banking.html
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+    type: APIReference
+  - url: openapi/suncorp-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Public, unauthenticated Consumer Data Right Product Reference Data API
+    exposing Suncorp Bank's currently offered banking products (transaction, deposit,
+    mortgage, personal lending, credit card and business lending) per the Australian
+    Consumer Data Standards. GET /banking/products and /banking/products/{productId}
+    return REST/JSON with an x-v version header (live at x-v 5, 26 products at time
+    of review). No credentials required. Powered by the Frollo PRD portal.
+common:
+- type: Website
+  url: https://www.suncorpbank.com.au/
+- type: DeveloperPortal
+  url: https://www.suncorpbank.com.au/help-support/open-banking.html
+- type: Documentation
+  url: https://consumerdatastandardsaustralia.github.io/standards/
+- type: GitHubOrganization
+  url: https://github.com/suncorp
+- type: LinkedIn
+  url: https://www.linkedin.com/company/suncorp/
+- type: PrivacyPolicy
+  url: https://www.suncorpbank.com.au/about-us/legal/privacy.html
+- type: TermsOfService
+  url: https://www.suncorpbank.com.au/about-us/legal.html
+- type: Support
+  url: https://www.suncorpbank.com.au/help-support/open-banking.html
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
