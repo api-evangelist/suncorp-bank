@@ -1,0 +1,54 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://id-ob.suncorpbank.com.au/.well-known/openid-configuration (live OIDC
+  discovery, fetched 2026-07-20) + Suncorp Bank open-banking docs
+docs: https://www.suncorpbank.com.au/help-support/open-banking.html
+summary:
+  model: two-tier CDR (Consumer Data Right)
+  types: [none, oauth2, openIdConnect, mutualTLS]
+  oauth2_flows: [authorizationCode, clientCredentials, refreshToken]
+  api_key_in: []
+  notes: >-
+    The public Product Reference Data (PRD) API is UNAUTHENTICATED (no API key,
+    no token). All consumer-data endpoints require CDR-accredited access under a
+    FAPI 2.0 security profile.
+tiers:
+- name: Public Product Reference Data (PRD)
+  auth: none
+  scope: unauthenticated
+  hosts: [https://id-ob.suncorpbank.com.au/cds-au/v1]
+  operations: [listBankingProducts, getBankingProductDetail]
+  evidence: openapi/suncorp-bank-cds-banking-products-openapi.yml (product paths declare no security)
+- name: CDR consumer data sharing (accredited)
+  auth: oauth2 + openIdConnect + mutualTLS
+  scope: CDR Accredited Data Recipient (ADR) only — not openly consumable
+  profile: FAPI 2.0 / CDR security profile
+  issuer: https://id-ob.suncorpbank.com.au
+schemes:
+- name: CDR OpenID Connect
+  type: openIdConnect
+  openIdConnectUrl: https://id-ob.suncorpbank.com.au/.well-known/openid-configuration
+  issuer: https://id-ob.suncorpbank.com.au
+  authorization_endpoint: https://id-ob.suncorpbank.com.au/authorize
+  token_endpoint: https://secure-id-ob.suncorpbank.com.au/token
+  pushed_authorization_request_endpoint: https://secure-id-ob.suncorpbank.com.au/par
+  registration_endpoint: https://secure-id-ob.suncorpbank.com.au/register
+  jwks_uri: https://id-ob.suncorpbank.com.au/jwks
+  grant_types_supported: [authorization_code, client_credentials, refresh_token]
+  response_types_supported: ["code id_token", "code"]
+  token_endpoint_auth_methods_supported: [private_key_jwt]
+  require_pushed_authorization_requests: true
+  code_challenge_methods_supported: [S256]
+  id_token_signing_alg_values_supported: [PS256]
+  tls_client_certificate_bound_access_tokens: true
+  acr_values_supported: ["urn:cds.au:cdr:2", "urn:cds.au:cdr:3"]
+  subject_types_supported: [pairwise]
+  cdr_arrangement_revocation_endpoint: https://secure-id-ob.suncorpbank.com.au/arrangements/revoke
+  sources: [well-known/suncorp-bank-openid-configuration.json]
+- name: mutualTLS
+  type: mutualTLS
+  note: Access tokens are TLS client-certificate bound (holder-of-key), per CDR/FAPI.
+  sources: [well-known/suncorp-bank-openid-configuration.json]
+contact: openbanking@suncorpbank.com.au
+scopes_ref: scopes/suncorp-bank-scopes.yml

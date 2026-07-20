@@ -50,6 +50,40 @@ apis:
     return REST/JSON with an x-v version header (live at x-v 5, 26 products at time
     of review). No credentials required. Powered by the Frollo PRD portal.
 common:
+- type: AgenticAccess
+  url: agentic-access/suncorp-bank-agentic-access.yml
+- type: DomainSecurity
+  url: security/suncorp-bank-domain-security.yml
+- type: Authentication
+  url: authentication/suncorp-bank-authentication.yml
+- type: OAuthScopes
+  url: scopes/suncorp-bank-scopes.yml
+- type: WellKnown
+  url: well-known/suncorp-bank-well-known.yml
+- type: Conformance
+  url: conformance/suncorp-bank-conformance.yml
+- type: Compliance
+  url: https://www.cdr.gov.au/find-a-provider
+- type: ErrorCatalog
+  url: errors/suncorp-bank-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/suncorp-bank-lifecycle.yml
+- type: StatusPage
+  url: https://www.cdr.gov.au/performance
+- type: Deprecation
+  url: https://www.suncorpbank.com.au/variation
+- type: Conventions
+  url: conventions/suncorp-bank-conventions.yml
+- type: MCPServer
+  url: mcp/suncorp-bank-mcp.yml
+- type: LLMsTxt
+  url: llms/suncorp-bank-llms.txt
+- type: Overlay
+  url: overlays/suncorp-bank-cds-banking-products-overlay.yaml
+- type: DataModel
+  url: data-model/suncorp-bank-data-model.yml
+- type: AgentSkill
+  url: skills/suncorp-bank-product-reference-data.md
 - type: Website
   url: https://www.suncorpbank.com.au/
 - type: DeveloperPortal

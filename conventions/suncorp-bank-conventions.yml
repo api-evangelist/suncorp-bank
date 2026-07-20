@@ -1,0 +1,47 @@
+generated: '2026-07-20'
+method: derived
+source: >-
+  openapi/suncorp-bank-cds-banking-products-openapi.yml + Australian Consumer
+  Data Standards conventions + Suncorp Bank open-banking docs
+notes: >-
+  Cross-cutting request/response semantics for the public CDR Product Reference
+  Data API. Conventions follow the DSB Consumer Data Standards; the public PRD
+  tier is read-only (GET), unauthenticated, and idempotent by nature (no
+  write/idempotency-key contract).
+authentication:
+  public_prd: none (unauthenticated)
+  ref: authentication/suncorp-bank-authentication.yml
+versioning:
+  style: header
+  request_headers: [x-v, x-min-v]
+  response_headers: [x-v]
+  ref: lifecycle/suncorp-bank-lifecycle.yml
+pagination:
+  style: page-number
+  params:
+    page: 1-based page number (default 1)
+    page-size: results per page (default 25)
+  response_fields: [meta.totalRecords, meta.totalPages, links.first, links.prev, links.next, links.last, links.self]
+filtering:
+  params:
+    effective: CURRENT | FUTURE | ALL (default CURRENT)
+    updated-since: DateTimeString — only products updated after this instant
+    brand: filter by brand
+    product-category: BankingProductCategoryV2 enum
+idempotency:
+  supported: false
+  reason: Public surface is read-only (GET only); no state-changing operations and no idempotency-key contract.
+request_tracing:
+  header: x-fapi-interaction-id
+  note: RFC 4122 UUID correlation id; echoed by the data holder on authenticated tiers.
+error_envelope:
+  media_type: application/json
+  schema: ResponseErrorListV2 (CDS errors[] with URN code/title/detail)
+  ref: errors/suncorp-bank-problem-types.yml
+rate_limiting:
+  documented: false
+  note: Docs state the public product APIs have "no usage restrictions"; CDR non-functional
+    requirements (traffic thresholds) apply to the accredited tier.
+transport:
+  protocol: REST/HTTPS (JSON)
+  base_url: https://id-ob.suncorpbank.com.au/cds-au/v1

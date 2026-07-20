@@ -1,0 +1,33 @@
+generated: '2026-07-20'
+method: searched
+source: live probes of Suncorp Bank hosts on 2026-07-20
+notes: >-
+  The CDR identity host id-ob.suncorpbank.com.au serves a live OpenID Connect
+  discovery document for Suncorp Bank's authenticated Consumer Data Right (CDR)
+  data-sharing tier (FAPI-grade). The public marketing host www.suncorpbank.com.au
+  301-redirects .well-known paths to .html marketing URLs (not real discovery
+  documents) and publishes no security.txt.
+hosts:
+- host: https://id-ob.suncorpbank.com.au
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: suncorp-bank-openid-configuration.json
+    note: CDR/FAPI OIDC discovery — issuer, PAR, private_key_jwt, mTLS-bound tokens, PS256.
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://www.suncorpbank.com.au
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 301
+    note: Redirects to /.well-known/openid-configuration.html (marketing rewrite, not a discovery doc).
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404

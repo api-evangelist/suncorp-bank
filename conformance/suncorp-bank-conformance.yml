@@ -1,0 +1,52 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  Live OIDC discovery (well-known/suncorp-bank-openid-configuration.json),
+  openapi/suncorp-bank-cds-banking-products-openapi.yml, and Suncorp Bank
+  open-banking docs. Compliance regime: Australian Consumer Data Right (CDR).
+compliance_program:
+  name: Consumer Data Right (CDR) — Banking sector data holder
+  regulator: Australian Competition and Consumer Commission (ACCC) / Treasury
+  standards_body: Data Standards Body (DSB)
+  registry: https://www.cdr.gov.au/find-a-provider
+  evidence: Live, accredited CDR PRD endpoint and FAPI OIDC identity provider.
+standards:
+- id: cdr-consumer-data-standards
+  conforms: true
+  evidence: Implements the DSB Consumer Data Standards CDR Banking API (OpenAPI v1.36.0); live PRD at x-v 5.
+- id: cds-header-versioning
+  conforms: true
+  evidence: x-v / x-min-v request headers; 406 Header/UnsupportedVersion negotiation confirmed on 2026-07-20.
+- id: oauth2
+  conforms: true
+  evidence: OIDC discovery advertises authorization_code, client_credentials, refresh_token grant types.
+- id: oidc
+  conforms: true
+  evidence: /.well-known/openid-configuration served with issuer, id_token PS256 signing, userinfo endpoint.
+- id: fapi
+  conforms: true
+  evidence: >-
+    require_pushed_authorization_requests=true (PAR), private_key_jwt client auth,
+    tls_client_certificate_bound_access_tokens=true (mTLS holder-of-key), PS256,
+    PKCE S256, acr urn:cds.au:cdr:2 / cdr:3 — CDR/FAPI security profile.
+- id: par-rfc9126
+  conforms: true
+  evidence: pushed_authorization_request_endpoint advertised and required.
+- id: mtls-rfc8705
+  conforms: true
+  evidence: tls_client_certificate_bound_access_tokens=true.
+- id: pkce-rfc7636
+  conforms: true
+  evidence: code_challenge_methods_supported=[S256].
+- id: standard-pagination
+  conforms: true
+  evidence: page / page-size query params and meta.totalPages/totalRecords per CDS pagination.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use the CDS ResponseErrorListV2 envelope (errors[] with URN code/title/detail), not application/problem+json.
+- id: fhir-r4
+  conforms: false
+- id: scim2
+  conforms: false
+- id: odata
+  conforms: false

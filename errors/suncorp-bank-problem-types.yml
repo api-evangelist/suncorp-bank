@@ -1,0 +1,66 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/suncorp-bank-cds-banking-products-openapi.yml (product operation 4xx responses)
+format: cds-error-list
+notes: >-
+  The public Product Reference Data endpoints return the Consumer Data Standards
+  (CDS) ResponseErrorListV2 envelope on error — an object with an errors[] array,
+  each entry carrying a URN code, a human title, a detail string, and optional
+  meta. This is NOT RFC 9457 application/problem+json. Error codes below are the
+  CDS standard URNs referenced by the operation response descriptions.
+envelope:
+  media_type: application/json
+  schema: ResponseErrorListV2
+  shape: '{ "errors": [ { "code": "<urn>", "title": "<string>", "detail": "<string>", "meta": {} } ] }'
+problems:
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/Invalid
+  title: Invalid Field
+  detail: A supplied query field failed validation (e.g. malformed value).
+  source_operations: [listBankingProducts, getBankingProductDetail]
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/Missing
+  title: Missing Required Field
+  detail: A required field was not supplied.
+  source_operations: [listBankingProducts, getBankingProductDetail]
+- status: 400
+  code: urn:au-cds:error:cds-all:Header/Missing
+  title: Missing Required Header
+  detail: A required request header (e.g. x-v) was not supplied.
+  source_operations: [listBankingProducts, getBankingProductDetail]
+- status: 400
+  code: urn:au-cds:error:cds-all:Header/InvalidVersion
+  title: Invalid Version
+  detail: The requested x-v / x-min-v version value was not a valid positive integer.
+  source_operations: [listBankingProducts, getBankingProductDetail]
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/InvalidDateTime
+  title: Invalid Date
+  detail: The updated-since value was not a valid DateTimeString.
+  source_operations: [listBankingProducts]
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/InvalidPageSize
+  title: Invalid Page Size
+  detail: The page-size query parameter was out of the permitted range.
+  source_operations: [listBankingProducts]
+- status: 404
+  code: urn:au-cds:error:cds-all:Resource/NotFound
+  title: Unavailable Resource
+  detail: The requested productId does not correspond to an available product.
+  source_operations: [getBankingProductDetail]
+- status: 404
+  code: urn:au-cds:error:cds-all:Resource/Invalid
+  title: Invalid Resource
+  detail: The supplied productId is not a valid resource identifier.
+  source_operations: [getBankingProductDetail]
+- status: 406
+  code: urn:au-cds:error:cds-all:Header/UnsupportedVersion
+  title: Unsupported Version
+  detail: None of the requested versions (x-v / x-min-v) are supported. Confirmed on live endpoint for x-v 3.
+  remediation: Request a supported version (x-v 5 for GET /banking/products at time of review).
+  source_operations: [listBankingProducts, getBankingProductDetail]
+- status: 422
+  code: urn:au-cds:error:cds-all:Field/InvalidPage
+  title: Invalid Page
+  detail: The requested page number is out of range for the result set.
+  source_operations: [listBankingProducts]

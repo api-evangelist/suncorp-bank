@@ -1,0 +1,62 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/suncorp-bank-cds-banking-products-openapi.yml (product schema $ref graph)
+notes: >-
+  Entity graph for the public Product Reference Data surface. The root entity is
+  BankingProduct; its detail payload embeds arrays of features, constraints,
+  eligibility, fees, and category-specific rate structures. There is deliberately
+  no id link from a product to an account in the CDR model.
+entities:
+- name: BankingProduct
+  id_field: productId
+  id_type: BankingProductId (ASCIIString)
+  key_fields: [productId, productCategory, name, description, brand, lastUpdated, effectiveFrom, effectiveTo]
+  source_schema: BankingProductV4 / BankingProductDetailV7
+- name: BankingProductFeature
+  belongs_to: BankingProduct
+  via: features[]
+- name: BankingProductConstraint
+  belongs_to: BankingProduct
+  via: constraints[]
+- name: BankingProductEligibility
+  belongs_to: BankingProduct
+  via: eligibility[]
+- name: BankingProductFee
+  belongs_to: BankingProduct
+  via: fees[]
+- name: BankingProductDepositRate
+  belongs_to: BankingProduct
+  via: depositRates[]
+- name: BankingProductLendingRate
+  belongs_to: BankingProduct
+  via: lendingRates[]
+- name: BankingProductCardArt
+  belongs_to: BankingProduct
+  via: cardArt[]
+relationships:
+- from: BankingProduct
+  to: BankingProductFeature
+  type: has_many
+  via: features
+- from: BankingProduct
+  to: BankingProductConstraint
+  type: has_many
+  via: constraints
+- from: BankingProduct
+  to: BankingProductEligibility
+  type: has_many
+  via: eligibility
+- from: BankingProduct
+  to: BankingProductFee
+  type: has_many
+  via: fees
+- from: BankingProduct
+  to: BankingProductDepositRate
+  type: has_many
+  via: depositRates
+- from: BankingProduct
+  to: BankingProductLendingRate
+  type: has_many
+  via: lendingRates
+enumerations:
+  productCategory: BankingProductCategoryV2 (TRANS_AND_SAVINGS_ACCOUNTS, TERM_DEPOSITS, RESIDENTIAL_MORTGAGES, CRED_AND_CHRG_CARDS, PERS_LOANS, BUSINESS_LOANS, and others per CDS)

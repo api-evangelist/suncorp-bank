@@ -1,0 +1,33 @@
+# Suncorp Bank
+
+> Suncorp Bank is an Australian retail and business bank (Brisbane, Queensland), acquired by ANZ on 31 July 2024 and operating as an ANZ division under the Suncorp Bank brand during a multi-year transition. As a Consumer Data Right (CDR) data holder it exposes a public, unauthenticated Product Reference Data (PRD) API conforming to the Australian Consumer Data Standards, plus an accredited (FAPI-grade) consumer-data-sharing tier.
+
+## APIs
+
+- [Suncorp Bank CDR Product Reference Data API](https://www.suncorpbank.com.au/help-support/open-banking.html): Public, unauthenticated CDR PRD API exposing currently offered banking products. Base URL https://id-ob.suncorpbank.com.au/cds-au/v1. GET /banking/products and /banking/products/{productId}. Requires the x-v version header (currently x-v 5 for the product list).
+
+## Specs
+
+- [OpenAPI (CDR Banking API, shared DSB standard)](openapi/suncorp-bank-cds-banking-products-openapi.yml): DSB Consumer Data Standards CDR Banking API, OpenAPI 3.0.3 v1.36.0. Suncorp implements the two unauthenticated product operations.
+- [OIDC discovery](well-known/suncorp-bank-openid-configuration.json): Live CDR/FAPI OpenID Connect configuration for the accredited data-sharing tier.
+
+## Artifacts
+
+- [Authentication](authentication/suncorp-bank-authentication.yml): Two-tier CDR model — public PRD (none) + accredited OAuth2/OIDC/mTLS (FAPI 2.0, PAR, private_key_jwt, PS256).
+- [OAuth Scopes](scopes/suncorp-bank-scopes.yml): CDR banking + common scopes from live OIDC discovery.
+- [Conformance](conformance/suncorp-bank-conformance.yml): CDR/CDS, OAuth2, OIDC, FAPI, PAR, mTLS, PKCE.
+- [Error catalog](errors/suncorp-bank-problem-types.yml): CDS ResponseErrorListV2 URN error codes.
+- [Conventions](conventions/suncorp-bank-conventions.yml): versioning, pagination, filtering, error envelope.
+- [Lifecycle](lifecycle/suncorp-bank-lifecycle.yml): CDS header versioning, product-variation deprecation, CDR availability dashboard.
+- [Domain security](security/suncorp-bank-domain-security.yml): TLS/HSTS/SPF/DMARC probe.
+- [MCP tools (candidate)](mcp/suncorp-bank-mcp.yml): read-only product-data tools.
+
+## Docs
+
+- [Open Banking / CDR](https://www.suncorpbank.com.au/help-support/open-banking.html): Official Suncorp Bank open-banking page.
+- [Consumer Data Standards](https://consumerdatastandardsaustralia.github.io/standards/): DSB API standard.
+- [CDR Performance Dashboard](https://www.cdr.gov.au/performance): Data-holder availability metrics.
+
+## Contact
+
+- Product API: openbanking@suncorpbank.com.au

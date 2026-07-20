@@ -1,0 +1,50 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://id-ob.suncorpbank.com.au/.well-known/openid-configuration
+  (scopes_supported, live OIDC discovery, fetched 2026-07-20)
+docs: https://consumerdatastandardsaustralia.github.io/standards/#security-endpoints
+notes: >-
+  Scopes govern the CDR-accredited (authenticated) consumer-data-sharing tier.
+  The public Product Reference Data API is unauthenticated and requires no scope.
+  Scope semantics are defined by the Australian Consumer Data Standards (CDS).
+schemes:
+- name: CDR OpenID Connect
+  source: well-known/suncorp-bank-openid-configuration.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://id-ob.suncorpbank.com.au/authorize
+    tokenUrl: https://secure-id-ob.suncorpbank.com.au/token
+  - flow: clientCredentials
+    tokenUrl: https://secure-id-ob.suncorpbank.com.au/token
+scopes:
+- scope: openid
+  description: OpenID Connect authentication; issue an ID token for the consumer.
+  flows: [authorizationCode]
+- scope: profile
+  description: Access to basic profile claims (name, given_name, family_name).
+  flows: [authorizationCode]
+- scope: bank:accounts.basic:read
+  description: Read basic banking account data (account list, masked identifiers, balances metadata).
+  flows: [authorizationCode]
+- scope: bank:accounts.detail:read
+  description: Read detailed banking account data (account numbers, features, terms).
+  flows: [authorizationCode]
+- scope: bank:transactions:read
+  description: Read banking account transactions.
+  flows: [authorizationCode]
+- scope: bank:payees:read
+  description: Read saved payees.
+  flows: [authorizationCode]
+- scope: bank:regular_payments:read
+  description: Read direct debits and scheduled/regular payments.
+  flows: [authorizationCode]
+- scope: common:customer.basic:read
+  description: Read basic customer data (name, contact type).
+  flows: [authorizationCode]
+- scope: common:customer.detail:read
+  description: Read detailed customer data (contact details, organisation details).
+  flows: [authorizationCode]
+- scope: cdr:registration
+  description: Dynamic client registration for CDR Accredited Data Recipients.
+  flows: [clientCredentials]

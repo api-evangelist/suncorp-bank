@@ -1,0 +1,36 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  Suncorp Bank open-banking docs, live endpoint probe, Australian Consumer Data
+  Standards, and the CDR performance/availability regime.
+versioning:
+  scheme: cds-header-versioning
+  mechanism: x-v request header (with optional x-min-v), x-v echoed in response
+  current:
+    listBankingProducts: '5'
+    getBankingProductDetail: '7'
+  confirmed: x-v 5 -> 200 and x-v 3 -> 406 (Header/UnsupportedVersion) on 2026-07-20
+  docs: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+  notes: >-
+    Endpoint versions are negotiated per-request. Obsolete payload versions
+    (v1-v6) are retained as documentation references in the CDS spec.
+deprecation:
+  policy: CDS obsolescence model — products carry effectiveFrom/effectiveTo and a
+    lastUpdated timestamp; obsolete products are marked not-effective before removal.
+  product_variation_url: https://www.suncorpbank.com.au/variation
+  sunset_header: false
+  notes: >-
+    Following the ANZ acquisition (31 July 2024), Suncorp Bank products may be
+    varied to ANZ equivalents over the transition; variations are published at
+    the product-variation page above.
+sla:
+  availability_dashboard: https://www.cdr.gov.au/performance
+  note: >-
+    CDR data holders report performance and availability to the regulator daily;
+    per-data-holder availability is surfaced on the CDR Performance Dashboard.
+    Suncorp Bank publishes no separate proprietary status page.
+status_page: https://www.cdr.gov.au/performance
+support:
+  email: openbanking@suncorpbank.com.au
+  docs: https://www.suncorpbank.com.au/help-support/open-banking.html
+deprecated_operations: []

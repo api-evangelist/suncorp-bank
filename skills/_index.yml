@@ -1,0 +1,8 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/suncorp-bank-cds-banking-products-openapi.yml (public product operations)
+skills:
+- file: suncorp-bank-product-reference-data.md
+  name: Look up Suncorp Bank products (CDR PRD)
+  api: openapi/suncorp-bank-cds-banking-products-openapi.yml
+  operations: [listBankingProducts, getBankingProductDetail]

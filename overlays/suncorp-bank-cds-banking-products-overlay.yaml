@@ -1,0 +1,28 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Suncorp Bank CDR Product Reference Data API
+  version: 1.0.0
+extends: openapi/suncorp-bank-cds-banking-products-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: suncorp-bank
+    x-apievangelist-note: >-
+      Suncorp Bank implements only the two UNAUTHENTICATED Product Reference Data
+      operations (listBankingProducts, getBankingProductDetail) from this shared
+      DSB Consumer Data Standards spec. All other operations require CDR
+      accreditation and are not openly consumable.
+    x-apievangelist-public-base-url: https://id-ob.suncorpbank.com.au/cds-au/v1
+- target: $.servers
+  update:
+  - description: Suncorp Bank live CDR Product Reference Data (public, unauthenticated)
+    url: https://id-ob.suncorpbank.com.au/cds-au/v1
+- target: $.paths['/banking/products'].get
+  update:
+    x-apievangelist-public: true
+    x-apievangelist-current-version: '5'
+    x-apievangelist-confirmed: '2026-07-20 HTTP 200 with x-v 5; 26 products'
+- target: $.paths['/banking/products/{productId}'].get
+  update:
+    x-apievangelist-public: true
+    x-apievangelist-current-version: '7'
