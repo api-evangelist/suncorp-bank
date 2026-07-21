@@ -1,11 +1,15 @@
-generated: '2026-07-20'
+generated: '2026-07-21'
 method: derived
-source: openapi/suncorp-bank-cds-banking-products-openapi.yml (product schema $ref graph)
+source: openapi/suncorp-bank-cds-banking-products-openapi.yml (product + account schema $ref graph)
 notes: >-
-  Entity graph for the public Product Reference Data surface. The root entity is
-  BankingProduct; its detail payload embeds arrays of features, constraints,
-  eligibility, fees, and category-specific rate structures. There is deliberately
-  no id link from a product to an account in the CDR model.
+  Entity graph derived from the full CDS Banking API spec in the repo. The
+  public Product Reference Data surface is rooted at BankingProduct, whose detail
+  payload embeds arrays of features, constraints, eligibility, fees, and
+  category-specific rate structures. The authenticated (consumer-authorized,
+  mTLS) tier is rooted at BankingAccount — accounts fan out to balance, detail,
+  transactions, direct debits, scheduled payments and instalment plans, with
+  scheduled payments referencing a Payee. There is deliberately no id link from a
+  product to an account in the CDR model (product data is a separate public surface).
 entities:
 - name: BankingProduct
   id_field: productId
@@ -33,6 +37,49 @@ entities:
 - name: BankingProductCardArt
   belongs_to: BankingProduct
   via: cardArt[]
+- name: BankingAccount
+  id_field: accountId
+  id_type: BankingAccountId (ASCIIString)
+  key_fields: [accountId, displayName, nickname, maskedNumber, productCategory, productName, openStatus, isOwned]
+  source_schema: BankingAccountV2 / BankingAccountDetailV4
+  tier: authenticated
+- name: BankingBalance
+  belongs_to: BankingAccount
+  via: accountId
+  key_fields: [accountId, currentBalance, availableBalance, creditLimit, amortisedLimit, currency, purses]
+  source_schema: BankingBalanceV2
+  tier: authenticated
+- name: BankingTransaction
+  id_field: transactionId
+  belongs_to: BankingAccount
+  via: accountId
+  key_fields: [transactionId, accountId, type, status, description, postingDateTime, valueDateTime, amount, currency, reference]
+  source_schema: BankingTransactionV2 / BankingTransactionDetailV2
+  tier: authenticated
+- name: BankingDirectDebit
+  belongs_to: BankingAccount
+  via: accountId
+  key_fields: [accountId, authorisedEntity, lastDebitDateTime, lastDebitAmount]
+  source_schema: BankingDirectDebitV1
+  tier: authenticated
+- name: BankingScheduledPayment
+  id_field: scheduledPaymentId
+  belongs_to: BankingAccount
+  via: from.accountId
+  references: BankingPayee
+  key_fields: [scheduledPaymentId, nickname, payerReference, payeeReference, status, from, paymentSet, recurrence]
+  source_schema: BankingScheduledPaymentV2
+  tier: authenticated
+- name: BankingInstalmentPlan
+  belongs_to: BankingAccount
+  via: accountId
+  source_schema: BankingProductInstalmentPlan
+  tier: authenticated
+- name: BankingPayee
+  id_field: payeeId
+  key_fields: [payeeId, nickname, description, type, creationDate]
+  source_schema: BankingPayeeV2 / BankingPayeeDetailV3
+  tier: authenticated
 relationships:
 - from: BankingProduct
   to: BankingProductFeature
