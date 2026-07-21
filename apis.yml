@@ -22,7 +22,7 @@ tags:
 - Product Reference Data
 - Consumer Data Right
 created: '2026-07-20'
-modified: '2026-07-20'
+modified: '2026-07-21'
 specificationVersion: '0.19'
 apis:
 - aid: suncorp-bank:suncorp-bank-cdr-product-reference-data-api
@@ -35,7 +35,7 @@ apis:
   - Public
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://www.suncorpbank.com.au/help-support/open-banking.html
-  baseURL: https://id-ob.suncorpbank.com.au/cds-au/v1
+  baseURL: https://id-ob.suncorpbank.com.au/cds-au/v1/banking/products
   properties:
   - url: https://www.suncorpbank.com.au/help-support/open-banking.html
     type: Documentation
@@ -47,8 +47,129 @@ apis:
     exposing Suncorp Bank's currently offered banking products (transaction, deposit,
     mortgage, personal lending, credit card and business lending) per the Australian
     Consumer Data Standards. GET /banking/products and /banking/products/{productId}
-    return REST/JSON with an x-v version header (live at x-v 5, 26 products at time
-    of review). No credentials required. Powered by the Frollo PRD portal.
+    return REST/JSON with an x-v version header (host id-ob.suncorpbank.com.au live,
+    x-v 5 returns HTTP 200). No credentials required. Powered by the Frollo PRD portal.
+- aid: suncorp-bank:suncorp-bank-cdr-accounts-balances-api
+  name: Suncorp Bank CDR Accounts & Balances API
+  tags:
+  - CDR
+  - Open Banking
+  - Accounts
+  - Balances
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.suncorpbank.com.au/help-support/open-banking.html
+  baseURL: https://id-ob.suncorpbank.com.au/cds-au/v1/banking/accounts
+  properties:
+  - url: https://www.suncorpbank.com.au/help-support/open-banking.html
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+    type: APIReference
+  - url: openapi/suncorp-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized Consumer Data Right Banking Accounts and Balances
+    API. Once a customer authorizes an accredited data recipient (ADR) through the
+    CDR consent and OIDC/FAPI authorization flow, GET /banking/accounts lists the
+    customer's accounts, GET /banking/accounts/balances and /banking/accounts/{accountId}/balance
+    return balances, and GET /banking/accounts/{accountId} returns account detail.
+    Requires a valid CDR access token over MTLS; not publicly callable. Implements
+    the shared DSB Consumer Data Standards Banking API v1.36.0.
+- aid: suncorp-bank:suncorp-bank-cdr-transactions-api
+  name: Suncorp Bank CDR Transactions API
+  tags:
+  - CDR
+  - Open Banking
+  - Transactions
+  - Consumer Authorized
+  - Banking
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.suncorpbank.com.au/help-support/open-banking.html
+  baseURL: https://id-ob.suncorpbank.com.au/cds-au/v1/banking/accounts/{accountId}/transactions
+  properties:
+  - url: https://www.suncorpbank.com.au/help-support/open-banking.html
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+    type: APIReference
+  - url: openapi/suncorp-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized Consumer Data Right Banking Transactions API. After
+    a customer consents to data sharing with an accredited data recipient, GET /banking/accounts/{accountId}/transactions
+    returns transaction history (with filtering by date and amount) and GET /banking/accounts/{accountId}/transactions/{transactionId}
+    returns full detail for a single transaction. Requires a valid CDR access token
+    over MTLS; not publicly callable. Implements the shared DSB Consumer Data Standards
+    Banking API v1.36.0.
+- aid: suncorp-bank:suncorp-bank-cdr-direct-debits-scheduled-payments-api
+  name: Suncorp Bank CDR Direct Debits & Scheduled Payments API
+  tags:
+  - CDR
+  - Open Banking
+  - Direct Debits
+  - Scheduled Payments
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.suncorpbank.com.au/help-support/open-banking.html
+  baseURL: https://id-ob.suncorpbank.com.au/cds-au/v1/banking/accounts/direct-debits
+  properties:
+  - url: https://www.suncorpbank.com.au/help-support/open-banking.html
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+    type: APIReference
+  - url: openapi/suncorp-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized Consumer Data Right Banking API covering direct
+    debits and scheduled payments. GET /banking/accounts/{accountId}/direct-debits
+    and /banking/accounts/direct-debits list authorized direct debits, while GET /banking/accounts/{accountId}/payments/scheduled
+    and /banking/payments/scheduled return scheduled/recurring payments the customer
+    has set up. Requires a valid CDR access token over MTLS; not publicly callable.
+    Implements the shared DSB Consumer Data Standards Banking API v1.36.0.
+- aid: suncorp-bank:suncorp-bank-cdr-payees-api
+  name: Suncorp Bank CDR Payees API
+  tags:
+  - CDR
+  - Open Banking
+  - Payees
+  - Consumer Authorized
+  - Banking
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.suncorpbank.com.au/help-support/open-banking.html
+  baseURL: https://id-ob.suncorpbank.com.au/cds-au/v1/banking/payees
+  properties:
+  - url: https://www.suncorpbank.com.au/help-support/open-banking.html
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
+    type: APIReference
+  - url: openapi/suncorp-bank-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized Consumer Data Right Banking Payees API. After a
+    customer authorizes an accredited data recipient, GET /banking/payees lists the
+    saved payees on the customer's profile and GET /banking/payees/{payeeId} returns
+    detail for a single payee (domestic, international, or BPAY biller). Requires a
+    valid CDR access token over MTLS; not publicly callable. Implements the shared
+    DSB Consumer Data Standards Banking API v1.36.0.
+- aid: suncorp-bank:suncorp-bank-gateway-payments-api
+  name: Suncorp Bank Gateway (Mastercard) Payments API
+  tags:
+  - Payments
+  - Merchant Services
+  - Card Processing
+  - Mastercard Gateway
+  - Partner Gated
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://suncorp.gateway.mastercard.com/api/documentation/integrationGuidelines/index.html
+  baseURL: https://suncorp.gateway.mastercard.com/api/rest
+  properties:
+  - url: https://suncorp.gateway.mastercard.com/api/documentation/integrationGuidelines/index.html
+    type: Documentation
+  - url: https://suncorp.gateway.mastercard.com/api/documentation/integrationGuidelines/apiReference/apiReference.html
+    type: APIReference
+  description: Suncorp Bank's merchant payment gateway, a Suncorp-branded instance
+    of Mastercard Payment Gateway Services (MPGS). It offers merchants a REST/JSON
+    (and NVP) API plus hosted checkout, hosted batch, and mobile SDKs to authorize,
+    capture, refund and tokenize card payments. Documented publicly at
+    suncorp.gateway.mastercard.com/api/documentation (docs live, HTTP 200); the REST
+    API itself is credentialed per-merchant (HTTP 401 without merchant credentials)
+    and Mastercard publishes no downloadable OpenAPI/Swagger for MPGS, so this entry
+    is humanURL-only with no machine-readable spec (partner/merchant-gated).
 common:
 - type: AgenticAccess
   url: agentic-access/suncorp-bank-agentic-access.yml
