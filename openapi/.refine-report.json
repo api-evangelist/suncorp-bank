@@ -1,0 +1,26 @@
+{
+  "provider": "suncorp-bank",
+  "sources": [
+    "suncorp-bank-banking-account-balances-api-openapi.yml",
+    "suncorp-bank-banking-account-direct-debits-api-openapi.yml",
+    "suncorp-bank-banking-account-scheduled-payments-api-openapi.yml",
+    "suncorp-bank-banking-account-transactions-api-openapi.yml",
+    "suncorp-bank-banking-accounts-api-openapi.yml",
+    "suncorp-bank-banking-payees-api-openapi.yml",
+    "suncorp-bank-banking-products-api-openapi.yml"
+  ],
+  "outputs": [
+    "suncorp-bank-banking-account-balances-api-openapi.yml",
+    "suncorp-bank-banking-account-direct-debits-api-openapi.yml",
+    "suncorp-bank-banking-account-scheduled-payments-api-openapi.yml",
+    "suncorp-bank-banking-account-transactions-api-openapi.yml",
+    "suncorp-bank-banking-accounts-api-openapi.yml",
+    "suncorp-bank-banking-payees-api-openapi.yml",
+    "suncorp-bank-banking-products-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
