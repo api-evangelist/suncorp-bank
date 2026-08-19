@@ -35,7 +35,7 @@ tags:
 - Consumer Data Right
 created: '2026-07-20'
 modified: '2026-07-21'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: suncorp-bank:suncorp-bank-gateway-payments-api
   name: Suncorp Bank Gateway (Mastercard) Payments API
