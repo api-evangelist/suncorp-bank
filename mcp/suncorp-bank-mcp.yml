@@ -2,18 +2,26 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: openapi/suncorp-bank-cds-banking-products-openapi.yml (public product operations)
-notes: >-
-  No official Suncorp Bank / CDR hosted MCP server is published. This is a
-  candidate tool list derived from the two public, unauthenticated Product
-  Reference Data operations. A read-only MCP server over these is safe to build.
+notes: No official Suncorp Bank / CDR hosted MCP server is published. This is a candidate tool list derived
+  from the two public, unauthenticated Product Reference Data operations. A read-only MCP server over
+  these is safe to build.
 server:
   name: suncorp-bank-cdr-products
   transport: http
   auth: none
 tools:
 - name: list_banking_products
-  description: List banking products currently openly offered by Suncorp Bank (transaction, deposit, mortgage, personal lending, credit card, business lending). Supports effective/updated-since/brand/product-category filters and page/page-size pagination. Requires x-v header.
+  description: List banking products currently openly offered by Suncorp Bank (transaction, deposit, mortgage,
+    personal lending, credit card, business lending). Supports effective/updated-since/brand/product-category
+    filters and page/page-size pagination. Requires x-v header.
   source_operation: openapi/suncorp-bank-cds-banking-products-openapi.yml#listBankingProducts
 - name: get_banking_product_detail
-  description: Get full detail for a single Suncorp Bank product by productId — features, constraints, eligibility, fees, deposit/lending rates, and reference URIs. Requires x-v header.
+  description: Get full detail for a single Suncorp Bank product by productId — features, constraints,
+    eligibility, fees, deposit/lending rates, and reference URIs. Requires x-v header.
   source_operation: openapi/suncorp-bank-cds-banking-products-openapi.yml#getBankingProductDetail
+deployment:
+  mode: none
+  verified: derived
+  tools: 2
+  checked: '2026-08-12'
+  source: catalog MCP census
