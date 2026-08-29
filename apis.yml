@@ -181,6 +181,9 @@ apis:
     url: >-
       https://consumerdatastandardsaustralia.github.io/standards/#consumer-data-standards-banking-apis
 common:
+- type: CapabilityMap
+  url: capabilities/suncorp-bank-capability-edges.yml
+  name: Suncorp Bank Business Capability Map
 - type: AgenticAccess
   url: agentic-access/suncorp-bank-agentic-access.yml
 - type: DomainSecurity
