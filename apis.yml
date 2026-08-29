@@ -11,6 +11,18 @@ description: Suncorp Bank is an Australian retail and business bank headquartere
   it is a data holder under Australia's Consumer Data Right (CDR / Open Banking) and
   exposes a public, unauthenticated Product Reference Data (PRD) API conforming to
   the Consumer Data Standards, powered by the Frollo PRD portal.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
